@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel — PlayM0z</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="tron-grid"></div>
+  <div class="scanlines"></div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Play<span class="accent">M0z</span></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Início</a>
+        <a href="create.html">Criar Link</a>
+        <a href="docs.html">API</a>
+        <a href="dashboard.html" class="btn btn-primary">Painel</a>
+      </nav>
+      <button class="menu-toggle" id="menuToggle">☰</button>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top:2.5rem">
+    <div class="container">
+      <div class="dash-header">
+        <div>
+          <h1 style="font-size:1.8rem">Painel de <span class="accent">Transações</span></h1>
+          <p style="color:var(--text-dim);margin-top:0.3rem">Confirme manualmente os pagamentos recebidos</p>
+        </div>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+          <a href="create.html" class="btn btn-primary">+ Novo Link</a>
+          <button class="btn btn-ghost" onclick="clearAll()">Limpar tudo</button>
+        </div>
+      </div>
+
+      <div id="emptyState" style="display:none;text-align:center;padding:4rem 1rem">
+        <p style="font-size:1.2rem;color:var(--text-dim)">Ainda não há transações neste dispositivo.</p>
+        <a href="create.html" class="btn btn-primary" style="margin-top:1.5rem">Criar primeiro link</a>
+      </div>
+
+      <div class="table-wrap">
+        <table id="paymentsTable">
+          <thead>
+            <tr>
+              <th>Referência</th>
+              <th>Produto</th>
+              <th>Valor</th>
+              <th>Estado</th>
+              <th>Criado</th>
+              <th>Acções</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:2rem;padding:1.2rem;background:rgba(0,240,255,0.05);border:1px solid var(--border);border-radius:8px">
+        <h3 style="color:var(--cyan);font-size:0.95rem;margin-bottom:0.6rem">Como usar</h3>
+        <ol style="color:var(--text-dim);margin-left:1.2rem;font-size:0.95rem">
+          <li>Crie um link e partilhe a referência / URL com o cliente.</li>
+          <li>O cliente transfere o valor para o seu número M-Pesa/eMola usando a referência.</li>
+          <li>Quando receber o comprovativo, clique em <strong>Marcar Pago</strong>.</li>
+          <li>Os dados ficam apenas neste browser (localStorage). Faça backup se necessário.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 PlayM0z — Dados armazenados localmente no seu browser</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

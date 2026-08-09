@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentação API — PlayM0z</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="tron-grid"></div>
+  <div class="scanlines"></div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Play<span class="accent">M0z</span></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Início</a>
+        <a href="create.html">Criar Link</a>
+        <a href="dashboard.html">Painel</a>
+        <a href="docs.html" class="btn btn-primary">API</a>
+      </nav>
+      <button class="menu-toggle" id="menuToggle">☰</button>
+    </div>
+  </header>
+
+  <section class="docs-content">
+    <div class="container">
+      <h1 style="font-size:2rem;margin-bottom:0.5rem">Documentação da <span class="accent">API</span></h1>
+      <p style="color:var(--text-dim);margin-bottom:2rem">
+        Versão actual: mock + localStorage. Ideal para protótipos e pagamentos manuais. 
+        Quando tiver backend real, substitua pelos endpoints LIVE.
+      </p>
+
+      <h2>01 — Conceitos</h2>
+      <p>O fluxo actual é <strong>manual</strong>:</p>
+      <ul style="margin:1rem 0 1rem 1.5rem;color:var(--text-dim)">
+        <li><strong>Link de pagamento</strong> — gera referência única (PMZ-YYYYMMDD-XXXX)</li>
+        <li><strong>Cliente</strong> — transfere via M-Pesa / eMola usando a referência</li>
+        <li><strong>Vendedor</strong> — confirma no painel quando recebe o comprovativo</li>
+        <li><strong>Armazenamento</strong> — localStorage do browser (não há servidor)</li>
+      </ul>
+
+      <h2>02 — Fluxo recomendado</h2>
+      <pre><code>1. Vendedor cria link → recebe referência + URL pública
+2. Partilha a URL ou a referência com o cliente
+3. Cliente abre pay.html?ref=PMZ-... e vê instruções
+4. Cliente paga e envia comprovativo
+5. Vendedor marca como PAID no dashboard.html
+6. (Opcional) Vendedor entrega o produto digital</code></pre>
+
+      <h2>03 — Estrutura de uma transação</h2>
+      <pre><code>{
+  "id": "PMZ-20260809-1482",
+  "title": "Curso de Vendas",
+  "amount": 1500,
+  "description": "Acesso completo",
+  "sellerPhone": "84XXXXXXX",
+  "sellerName": "João Silva",
+  "preferredMethod": "any",
+  "status": "PENDING" | "PAID" | "CANCELLED",
+  "createdAt": "2026-08-09T17:30:00.000Z",
+  "paidAt": null
+}</code></pre>
+
+      <h2>04 — Integração futura (quando tiver backend)</h2>
+      <p>Quando migrar para um backend real (Node, Python, etc.), o fluxo pode ser:</p>
+      <pre><code>POST /api/payments
+{
+  "reference": "pedido-123",
+  "title": "...",
+  "amountMzn": 1500,
+  "method": "MPESA",
+  "payerPhone": "84..."
+}
+
+→ Resposta 202 + webhook payment.succeeded</code></pre>
+
+      <p style="margin-top:1.5rem;color:var(--text-dim)">
+        A versão actual do PlayM0z é intencionalmente simples e offline-first. 
+        Serve perfeitamente para começar a receber pagamentos manuais enquanto prepara a infraestrutura regulada.
+      </p>
+
+      <div style="margin-top:2.5rem">
+        <a href="create.html" class="btn btn-primary">Criar Link de Pagamento</a>
+        <a href="dashboard.html" class="btn btn-ghost" style="margin-left:0.8rem">Ir para o Painel</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 PlayM0z</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
